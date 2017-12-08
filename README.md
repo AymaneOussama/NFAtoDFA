@@ -1,2 +1,2 @@
 # NFAtoDFA
-Une application conçu par le langage Swift pour transformer un automate non déterministe en un automate déterministe 
+Une application conçue avec le langage Swift pour transformer un automate non déterministe en un automate déterministe 
