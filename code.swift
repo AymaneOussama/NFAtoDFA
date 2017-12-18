@@ -52,9 +52,9 @@ public class Automate {
             }
         }
         
-        var compteur = Dfa.count-1
         
-        for i in 0...compteur{
+        func passage(){
+            for i in 0...Dfa.count{
             if(Dfa[i].t2.count>1){
                     for j in 0...Dfa.count-1{
                             if( Dfa[i].t2==Dfa[j].t1){
@@ -66,26 +66,23 @@ public class Automate {
                                                     for z in 0...Dfa.count-1{
                                                             if (elem == Dfa[z].t1[0] && trans == Dfa[z].Str){
                                                                     for e in 0...Dfa[z].t2.count-1{
+                                                                        if (!(match2.contains(Dfa[z].t2[e]))) {
                                                                         match2.append(Dfa[z].t2[e])
+                                                                        }
                                                                     }
                                                             }
                                                     }
                                             }
                                         Dfa.append((t1:Dfa[i].t2, Str:trans, t2:match2))
-                                        match2=[]
-                                        compteur = Dfa.count-1
-                                        
-                                        
+                                        match2=[]  
                                     }
-                                    
-                                        
-                                        
                             }
                         break   
                     }
             }
-                
         }
+        }
+        passage ()
         for q in 0...Dfa.count-1{
          print(Dfa[q])   
         }
@@ -96,7 +93,7 @@ public class Automate {
 
 let automate = Automate(nodes: ["0", "1", "2","3"], values: ["a", "b"], firstState: "1", finalStates: ["3"])
 automate.addTransition(fstate:"0",value:"a",lstate:"0")
-automate.addTransition(fstate:"0",value:"b",lstate:"0")
+automate.addTransition(fstate:"0",value:"a",lstate:"1")
 automate.addTransition(fstate:"0",value:"b",lstate:"1")
 automate.addTransition(fstate:"1",value:"a",lstate:"2")
 automate.addTransition(fstate:"2",value:"b",lstate:"3")
