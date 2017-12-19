@@ -26,6 +26,8 @@ public class Automate {
     }
     
     public func Nfa2Dfa () {
+        var avant = 0
+        var apres = 0
         var match1: [String] = []
         var match2: [String] = []
         var Dfa: [(t1:[String], Str:String, t2:[String])] = []
@@ -54,14 +56,16 @@ public class Automate {
         
         
         func passage(){
-            for i in 0...Dfa.count{
+            var flag = 0
+            for i in 0...Dfa.count-1{
+                 flag = 0
             if(Dfa[i].t2.count>1){
                     for j in 0...Dfa.count-1{
-                            if( Dfa[i].t2==Dfa[j].t1){
-                                    break
-                            }
-                            else {
-                                    for trans in self.values{
+                        if(Dfa[j].t1 == Dfa[i].t2) { flag = 1 }                        
+                    }
+                    
+                    if(flag == 0 ) {
+                        for trans in self.values{
                                             for elem in Dfa[i].t2{
                                                     for z in 0...Dfa.count-1{
                                                             if (elem == Dfa[z].t1[0] && trans == Dfa[z].Str){
@@ -76,13 +80,19 @@ public class Automate {
                                         Dfa.append((t1:Dfa[i].t2, Str:trans, t2:match2))
                                         match2=[]  
                                     }
-                            }
-                        break   
                     }
             }
         }
         }
-        passage ()
+        
+        avant = Dfa.count
+        
+        while( avant != apres ){
+            avant = Dfa.count
+            passage()
+            apres = Dfa.count
+        }
+        
         for q in 0...Dfa.count-1{
          print(Dfa[q])   
         }
